@@ -1,0 +1,1306 @@
+SQL Queries:
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 29 July 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database Practise;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Practise;
+Database changed
+
+mysql> create table student(rno int,name varchar(255),city varchar(255),marks int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from student;
+Empty set (0.01 sec)
+
+mysql> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| rno   | int          | YES  |     | NULL    |       |
+| name  | varchar(255) | YES  |     | NULL    |       |
+| city  | varchar(255) | YES  |     | NULL    |       |
+| marks | int          | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into student values(11,'Tejas','Pune',89);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(12,'Anish','Mumbai',75);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(13,'Karan','Nagpur',78);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(14,'Pratham','Nashik',85);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(15,'Rohan','Nagar',95);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Nagpur |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagar  |    95 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where city='Pune';
++------+-------+------+-------+
+| rno  | name  | city | marks |
++------+-------+------+-------+
+|   11 | Tejas | Pune |    89 |
++------+-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        422 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         95 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         75 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) from student;
++------------+
+| avg(marks) |
++------------+
+|    84.4000 |
++------------+
+1 row in set (0.01 sec)
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 30 July 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.02 sec)
+
+mysql> use practise;
+Database changed
+mysql> describe practise;
+ERROR 1146 (42S02): Table 'practise.practise' doesn't exist
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| rno   | int          | YES  |     | NULL    |       |
+| name  | varchar(255) | YES  |     | NULL    |       |
+| city  | varchar(255) | YES  |     | NULL    |       |
+| marks | int          | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Nagpur |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagar  |    95 |
++------+---------+--------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from student where marks > 90;
++------+-------+-------+-------+
+| rno  | name  | city  | marks |
++------+-------+-------+-------+
+|   15 | Rohan | Nagar |    95 |
++------+-------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where city = 'pune' or city = 'Nagar';
++------+-------+-------+-------+
+| rno  | name  | city  | marks |
++------+-------+-------+-------+
+|   11 | Tejas | Pune  |    89 |
+|   15 | Rohan | Nagar |    95 |
++------+-------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where city = 'pune' and marks > 80;
++------+-------+------+-------+
+| rno  | name  | city | marks |
++------+-------+------+-------+
+|   11 | Tejas | Pune |    89 |
++------+-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> update student set city = 'Satara' where rno = 13;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagar  |    95 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from student where rno = 15;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
++------+---------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where city in ('Pune','Satara');
++------+-------+--------+-------+
+| rno  | name  | city   | marks |
++------+-------+--------+-------+
+|   11 | Tejas | Pune   |    89 |
+|   13 | Karan | Satara |    78 |
++------+-------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where marks between 85 and 100;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   14 | Pratham | Nashik |    85 |
++------+---------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where name like 't%';
++------+-------+------+-------+
+| rno  | name  | city | marks |
++------+-------+------+-------+
+|   11 | Tejas | Pune |    89 |
++------+-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%n';
++------+-------+--------+-------+
+| rno  | name  | city   | marks |
++------+-------+--------+-------+
+|   13 | Karan | Satara |    78 |
++------+-------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like 't%s';
++------+-------+------+-------+
+| rno  | name  | city | marks |
++------+-------+------+-------+
+|   11 | Tejas | Pune |    89 |
++------+-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into student value(15,'Rohan','Nagpur',92);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagpur |    92 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   11 | Tejas   | Pune   |    89 |
+|   15 | Rohan   | Nagpur |    92 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by name;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagpur |    92 |
+|   11 | Tejas   | Pune   |    89 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks desc;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   15 | Rohan   | Nagpur |    92 |
+|   11 | Tejas   | Pune   |    89 |
+|   14 | Pratham | Nashik |    85 |
+|   13 | Karan   | Satara |    78 |
+|   12 | Anish   | Mumbai |    75 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks asc;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   11 | Tejas   | Pune   |    89 |
+|   15 | Rohan   | Nagpur |    92 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by city;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   12 | Anish   | Mumbai |    75 |
+|   15 | Rohan   | Nagpur |    92 |
+|   14 | Pratham | Nashik |    85 |
+|   11 | Tejas   | Pune   |    89 |
+|   13 | Karan   | Satara |    78 |
++------+---------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select city,count(rno) from student group by city;
++--------+------------+
+| city   | count(rno) |
++--------+------------+
+| Pune   |          1 |
+| Mumbai |          1 |
+| Satara |          1 |
+| Nashik |          1 |
+| Nagpur |          1 |
++--------+------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into student values(16,'Pranav','Pune',82);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+--------+-------+
+| rno  | name    | city   | marks |
++------+---------+--------+-------+
+|   11 | Tejas   | Pune   |    89 |
+|   12 | Anish   | Mumbai |    75 |
+|   13 | Karan   | Satara |    78 |
+|   14 | Pratham | Nashik |    85 |
+|   15 | Rohan   | Nagpur |    92 |
+|   16 | Pranav  | Pune   |    82 |
++------+---------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select city,count(city) from student group by city having count(city) >= 2;
++------+-------------+
+| city | count(city) |
++------+-------------+
+| Pune |           2 |
++------+-------------+
+1 row in set (0.00 sec)
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 2 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table student(rno int,name varchar(255),address varchar(255),pno int,age int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student value(1,'Harsh','Delhi',9045678753,18);
+ERROR 1264 (22003): Out of range value for column 'pno' at row 1
+
+mysql> Alter table student drop column pno;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> describe student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| rno     | int          | YES  |     | NULL    |       |
+| name    | varchar(255) | YES  |     | NULL    |       |
+| address | varchar(255) | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| rno     | int          | YES  |     | NULL    |       |
+| name    | varchar(255) | YES  |     | NULL    |       |
+| address | varchar(255) | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student value(1,'Harsh','Delhi',18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(2,'Pratik','Bihar',19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(3,'Riyanka','Siliguri',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(4,'Deep','Ramnagar',18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(5,'Tejas','Kolkata',19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(6,'Karan','Pune',22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student value(7,'Pratham','Mumbai',21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student value(8,'Anish','Goa',23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+---------+----------+------+
+| rno  | name    | address  | age  |
++------+---------+----------+------+
+|    1 | Harsh   | Delhi    |   18 |
+|    2 | Pratik  | Bihar    |   19 |
+|    3 | Riyanka | Siliguri |   20 |
+|    4 | Deep    | Ramnagar |   18 |
+|    5 | Tejas   | Kolkata  |   19 |
+|    6 | Karan   | Pune     |   22 |
+|    7 | Pratham | Mumbai   |   21 |
+|    8 | Anish   | Goa      |   23 |
++------+---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> create table StudentCourse(course_id int,rno int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into StudentCourse value(1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(2,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(2,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(3,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(1,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(4,9);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(5,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into StudentCourse value(4,11);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from StudentCourse;
++-----------+------+
+| course_id | rno  |
++-----------+------+
+|         1 |    1 |
+|         2 |    2 |
+|         2 |    3 |
+|         3 |    4 |
+|         1 |    5 |
+|         4 |    9 |
+|         5 |   10 |
+|         4 |   11 |
++-----------+------+
+8 rows in set (0.00 sec)
+
+mysql> select StudentCourse.course_id,student.name,student.age from student inner join StudentCourse on student.rno = StudentCourse.rno;
++-----------+---------+------+
+| course_id | name    | age  |
++-----------+---------+------+
+|         1 | Harsh   |   18 |
+|         2 | Pratik  |   19 |
+|         2 | Riyanka |   20 |
+|         3 | Deep    |   18 |
+|         1 | Tejas   |   19 |
++-----------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select student.name,StudentCourse.course_id from student left join StudentCourse on student.rno = StudentCourse.rno;
++---------+-----------+
+| name    | course_id |
++---------+-----------+
+| Harsh   |         1 |
+| Pratik  |         2 |
+| Riyanka |         2 |
+| Deep    |         3 |
+| Tejas   |         1 |
+| Karan   |      NULL |
+| Pratham |      NULL |
+| Anish   |      NULL |
++---------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select student.name,StudentCourse.course_id from student right join StudentCourse on student.rno = StudentCourse.rno;
++---------+-----------+
+| name    | course_id |
++---------+-----------+
+| Harsh   |         1 |
+| Pratik  |         2 |
+| Riyanka |         2 |
+| Deep    |         3 |
+| Tejas   |         1 |
+| NULL    |         4 |
+| NULL    |         5 |
+| NULL    |         4 |
++---------+-----------+
+8 rows in set (0.00 sec)
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 5 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.04 sec)
+
+mysql> use practise;
+Database changed
+
+mysql> create table Worker(w_id int,fname varchar(10),lname varchar(10),salary int,j_date datetime,department varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into Worker values(001,'Monika','Arora',100000,'2014-02-20 09.00.00','HR');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into Worker values(002,'Niharika','Verma',80000,'2014-03-10 09.00.00','Admin');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Worker values(003,'Vishal','Singhal',300000,'2014-06-11 09.00.00','HR');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Worker values(004,'Vivek','Bhati',500000,'2014-08-21 09.00.00','Admin');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into Worker values(005,'Amitabh','Singh',500000,'2014-04-11 09.00.00','Admin');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Worker values(006,'Vipul','Diwan',200000,'2014-07-20 09.00.00','Account');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Worker values(007,'Satish','Kumar',75000,'2014-09-10 09.00.00','Account');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Worker values(008,'Geetika','Chauhan',90000,'2014-05-21 09.00.00','Admin');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select * from Worker;
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    3 | Vishal   | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    4 | Vivek    | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    6 | Vipul    | Diwan   | 200000 | 2014-07-20 09:00:00 | Account    |
+|    7 | Satish   | Kumar   |  75000 | 2014-09-10 09:00:00 | Account    |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> create table Bonus(w_ref_id int,b_date datetime,b_amount int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into Bonus values(1,'2016-02-20 00:00:00',5000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Bonus values(2,'2016-06-11 00:00:00',3000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Bonus values(3,'2016-02-20 00:00:00',4000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Bonus values(1,'2016-02-20 00:00:00',4500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Bonus values(2,'2016-06-11 00:00:00',3500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Bonus;
++----------+---------------------+----------+
+| w_ref_id | b_date              | b_amount |
++----------+---------------------+----------+
+|        1 | 2016-02-20 00:00:00 |     5000 |
+|        2 | 2016-06-11 00:00:00 |     3000 |
+|        3 | 2016-02-20 00:00:00 |     4000 |
+|        1 | 2016-02-20 00:00:00 |     4500 |
+|        2 | 2016-06-11 00:00:00 |     3500 |
++----------+---------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table Title(w_ref_id int,w_title varchar(50),affected_from datetime);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into Title values(1,'Manager','2016-02-20 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(2,'Executive','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(8,'Executive','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(5,'Manager','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(4,'Asst.Manager','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(7,'Executive','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(6,'Lead','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Title values(3,'Lead','2016-06-11 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Title;
++----------+--------------+---------------------+
+| w_ref_id | w_title      | affected_from       |
++----------+--------------+---------------------+
+|        1 | Manager      | 2016-02-20 00:00:00 |
+|        2 | Executive    | 2016-06-11 00:00:00 |
+|        8 | Executive    | 2016-06-11 00:00:00 |
+|        5 | Manager      | 2016-06-11 00:00:00 |
+|        4 | Asst.Manager | 2016-06-11 00:00:00 |
+|        7 | Executive    | 2016-06-11 00:00:00 |
+|        6 | Lead         | 2016-06-11 00:00:00 |
+|        3 | Lead         | 2016-06-11 00:00:00 |
++----------+--------------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select fname from Worker;
++----------+
+| fname    |
++----------+
+| Monika   |
+| Niharika |
+| Vishal   |
+| Vivek    |
+| Amitabh  |
+| Vipul    |
+| Satish   |
+| Geetika  |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select upper(fname) from Worker;
++--------------+
+| upper(fname) |
++--------------+
+| MONIKA       |
+| NIHARIKA     |
+| VISHAL       |
+| VIVEK        |
+| AMITABH      |
+| VIPUL        |
+| SATISH       |
+| GEETIKA      |
++--------------+
+8 rows in set (0.00 sec)
+
+mysql> select distinct department from Worker;
++------------+
+| department |
++------------+
+| HR         |
+| Admin      |
+| Account    |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> select substring(fname,1,3) from Worker;
++----------------------+
+| substring(fname,1,3) |
++----------------------+
+| Mon                  |
+| Nih                  |
+| Vis                  |
+| Viv                  |
+| Ami                  |
+| Vip                  |
+| Sat                  |
+| Gee                  |
++----------------------+
+8 rows in set (0.00 sec)
+
+mysql> select instr(fname, binary'a') from Worker where fname = 'Amhitabh';
+Empty set, 1 warning (0.00 sec)
+
+mysql> select instr(fname, binary'a') from Worker where fname = 'Amitabh';
++-------------------------+
+| instr(fname, binary'a') |
++-------------------------+
+|                       1 |
++-------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select rtrim(fname) from Worker;
++--------------+
+| rtrim(fname) |
++--------------+
+| Monika       |
+| Niharika     |
+| Vishal       |
+| Vivek        |
+| Amitabh      |
+| Vipul        |
+| Satish       |
+| Geetika      |
++--------------+
+8 rows in set (0.00 sec)
+
+mysql> select ltrim(fname) from Worker;
++--------------+
+| ltrim(fname) |
++--------------+
+| Monika       |
+| Niharika     |
+| Vishal       |
+| Vivek        |
+| Amitabh      |
+| Vipul        |
+| Satish       |
+| Geetika      |
++--------------+
+8 rows in set (0.00 sec)
+
+mysql> select distinct length(department) from Worker;
++--------------------+
+| length(department) |
++--------------------+
+|                  2 |
+|                  5 |
+|                  7 |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select replace(fname,'a','A') from Worker;
++------------------------+
+| replace(fname,'a','A') |
++------------------------+
+| MonikA                 |
+| NihArikA               |
+| VishAl                 |
+| Vivek                  |
+| AmitAbh                |
+| Vipul                  |
+| SAtish                 |
+| GeetikA                |
++------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select concat(fname,' ',lname) from Worker;
++-------------------------+
+| concat(fname,' ',lname) |
++-------------------------+
+| Monika Arora            |
+| Niharika Verma          |
+| Vishal Singhal          |
+| Vivek Bhati             |
+| Amitabh Singh           |
+| Vipul Diwan             |
+| Satish Kumar            |
+| Geetika Chauhan         |
++-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Worker order by fname asc;
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    7 | Satish   | Kumar   |  75000 | 2014-09-10 09:00:00 | Account    |
+|    6 | Vipul    | Diwan   | 200000 | 2014-07-20 09:00:00 | Account    |
+|    3 | Vishal   | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    4 | Vivek    | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Worker order by fname asc,department desc;
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    7 | Satish   | Kumar   |  75000 | 2014-09-10 09:00:00 | Account    |
+|    6 | Vipul    | Diwan   | 200000 | 2014-07-20 09:00:00 | Account    |
+|    3 | Vishal   | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    4 | Vivek    | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Worker where fname in ('Vipul','Satish');
++------+--------+-------+--------+---------------------+------------+
+| w_id | fname  | lname | salary | j_date              | department |
++------+--------+-------+--------+---------------------+------------+
+|    6 | Vipul  | Diwan | 200000 | 2014-07-20 09:00:00 | Account    |
+|    7 | Satish | Kumar |  75000 | 2014-09-10 09:00:00 | Account    |
++------+--------+-------+--------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Worker where fname not in ('Vipul','Satish');
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    3 | Vishal   | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    4 | Vivek    | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Worker where department = 'Admin';
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+8|    4 | Vivek    | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Worker where fname like '%a%';
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    3 | Vishal   | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    5 | Amitabh  | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    7 | Satish   | Kumar   |  75000 | 2014-09-10 09:00:00 | Account    |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Worker where fname like '%a';
++------+----------+---------+--------+---------------------+------------+
+| w_id | fname    | lname   | salary | j_date              | department |
++------+----------+---------+--------+---------------------+------------+
+|    1 | Monika   | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    2 | Niharika | Verma   |  80000 | 2014-03-10 09:00:00 | Admin      |
+|    8 | Geetika  | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+----------+---------+--------+---------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Worker where fname like '_____h';
++------+--------+-------+--------+---------------------+------------+
+| w_id | fname  | lname | salary | j_date              | department |
++------+--------+-------+--------+---------------------+------------+
+|    7 | Satish | Kumar |  75000 | 2014-09-10 09:00:00 | Account    |
++------+--------+-------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Worker where salary between 100000 and 500000;
++------+---------+---------+--------+---------------------+------------+
+| w_id | fname   | lname   | salary | j_date              | department |
++------+---------+---------+--------+---------------------+------------+
+|    1 | Monika  | Arora   | 100000 | 2014-02-20 09:00:00 | HR         |
+|    3 | Vishal  | Singhal | 300000 | 2014-06-11 09:00:00 | HR         |
+|    4 | Vivek   | Bhati   | 500000 | 2014-08-21 09:00:00 | Admin      |
+|    5 | Amitabh | Singh   | 500000 | 2014-04-11 09:00:00 | Admin      |
+|    6 | Vipul   | Diwan   | 200000 | 2014-07-20 09:00:00 | Account    |
++------+---------+---------+--------+---------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Worker where year(j_date) = 2014 and month(j_date) = 2;
++------+--------+-------+--------+---------------------+------------+
+| w_id | fname  | lname | salary | j_date              | department |
++------+--------+-------+--------+---------------------+------------+
+|    1 | Monika | Arora | 100000 | 2014-02-20 09:00:00 | HR         |
++------+--------+-------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from Worker where department = 'Admin';
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select concat(fname,' ',lname) from Worker where w_id in(select w_id from Worker where salary between 50000 and 100000);
++-------------------------+
+| concat(fname,' ',lname) |
++-------------------------+
+| Monika Arora            |
+| Niharika Verma          |
+| Satish Kumar            |
+| Geetika Chauhan         |
++-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select fname,salary from Worker where salary=(select max(salary) from Worker);
++---------+--------+
+| fname   | salary |
++---------+--------+
+| Vivek   | 500000 |
+| Amitabh | 500000 |
++---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select department,sum(salary) from Worker group by department;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| HR         |      400000 |
+| Admin      |     1170000 |
+| Account    |      275000 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Worker where w_id = (select max(w_id) from Worker);
++------+---------+---------+--------+---------------------+------------+
+| w_id | fname   | lname   | salary | j_date              | department |
++------+---------+---------+--------+---------------------+------------+
+|    8 | Geetika | Chauhan |  90000 | 2014-05-21 09:00:00 | Admin      |
++------+---------+---------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Worker where w_id = (select min(w_id) from Worker);
++------+--------+-------+--------+---------------------+------------+
+| w_id | fname  | lname | salary | j_date              | department |
++------+--------+-------+--------+---------------------+------------+
+|    1 | Monika | Arora | 100000 | 2014-02-20 09:00:00 | HR         |
++------+--------+-------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 8 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| student            |
+| studentcourse      |
+| title              |
+| worker             |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table empdetails(empid int,fname varchar(200),manager_id int,DOJ datetime,city varchar(200));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into empdetails value(121,'John',321,'2019-01-31','Toronto');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into empdetails value(321,'Walter',986,'2020-01-30','California');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into empdetails value(421,'Kuldeep',876,'2021-11-27','New Delhi');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table empsalary(empid int,Project varchar(10),salary int,Variable int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into empsalary values(121,'P1',8000,500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into empsalary values(321,'P2',10000,1000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into empsalary values(421,'P1',12000,0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from empdetails;
++-------+---------+------------+---------------------+------------+
+| empid | fname   | manager_id | DOJ                 | city       |
++-------+---------+------------+---------------------+------------+
+|   121 | John    |        321 | 2019-01-31 00:00:00 | Toronto    |
+|   321 | Walter  |        986 | 2020-01-30 00:00:00 | California |
+|   421 | Kuldeep |        876 | 2021-11-27 00:00:00 | New Delhi  |
++-------+---------+------------+---------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from empsalary;
++-------+---------+--------+----------+
+| empid | Project | salary | Variable |
++-------+---------+--------+----------+
+|   121 | P1      |   8000 |      500 |
+|   321 | P2      |  10000 |     1000 |
+|   421 | P1      |  12000 |        0 |
++-------+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select empid,fname from empdetails where manager_id = 986;
++-------+--------+
+| empid | fname  |
++-------+--------+
+|   321 | Walter |
++-------+--------+
+1 row in set (0.00 sec)
+
+
+mysql> select distinct(Project) from empsalary;
++---------+
+| Project |
++---------+
+| P1      |
+| P2      |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) from empsalary where Project = 'P1';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary),min(salary),avg(salary) from empsalary;
++-------------+-------------+-------------+
+| max(salary) | min(salary) | avg(salary) |
++-------------+-------------+-------------+
+|       12000 |        8000 |  10000.0000 |
++-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select empid,salary from empsalary where salary between 9000 and 15000;
++-------+--------+
+| empid | salary |
++-------+--------+
+|   321 |  10000 |
+|   421 |  12000 |
++-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select empid,fname from empdetails where manager_id = 321;
++-------+-------+
+| empid | fname |
++-------+-------+
+|   121 | John  |
++-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select empid,fname from empdetails where city = 'Toronto' and manager_id = 321;
++-------+-------+
+| empid | fname |
++-------+-------+
+|   121 | John  |
++-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select empid,city,manager_id from empdetails where city = 'California' or manager_id = 321;
++-------+------------+------------+
+| empid | city       | manager_id |
++-------+------------+------------+
+|   121 | Toronto    |        321 |
+|   321 | California |        986 |
++-------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select empid from empsalary where not Project = 'P1';
++-------+
+| empid |
++-------+
+|   321 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select empid, salary + Variable as Totalsalary from empsalary;
++-------+-------------+
+| empid | Totalsalary |
++-------+-------------+
+|   121 |        8500 |
+|   321 |       11000 |
+|   421 |       12000 |
++-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select fname from empdetails where fname like '__hn%';
++-------+
+| fname |
++-------+
+| John  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select empid from empdetails union select empid from empsalary;
++-------+
+| empid |
++-------+
+|   121 |
+|   321 |
+|   421 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from empsalary where empid in(select empid from empsalary);
++-------+---------+--------+----------+
+| empid | Project | salary | Variable |
++-------+---------+--------+----------+
+|   121 | P1      |   8000 |      500 |
+|   321 | P2      |  10000 |     1000 |
+|   421 | P1      |  12000 |        0 |
++-------+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from empdetails where mod(empid,2) = 0;
+Empty set (0.00 sec)
+
+
+mysql> select instr(fname,'Snow') from empdetails;
++---------------------+
+| instr(fname,'Snow') |
++---------------------+
+|                   0 |
+|                   0 |
+|                   0 |
++---------------------+
+3 rows in set (0.01 sec)
+
+mysql> select concat(empid,manager_id) as newid from empdetails;
++--------+
+| newid  |
++--------+
+| 121321 |
+| 321986 |
+| 421876 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select concat(empid, manager_id) as newid from empdetails;
++--------+
+| newid  |
++--------+
+| 121321 |
+| 321986 |
+| 421876 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select upper(fname) and lower(city) from empdetails;
++------------------------------+
+| upper(fname) and lower(city) |
++------------------------------+
+|                            0 |
+|                            0 |
+|                            0 |
++------------------------------+
+3 rows in set, 3 warnings (0.01 sec)
+
+mysql> select upper(fname),lower(city) from empdetails;
++--------------+-------------+
+| upper(fname) | lower(city) |
++--------------+-------------+
+| JOHN         | toronto     |
+| WALTER       | california  |
+| KULDEEP      | new delhi   |
++--------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select fname,length(fname) - length(replace(fname,'n',' ')) from empdetails;
++---------+------------------------------------------------+
+| fname   | length(fname) - length(replace(fname,'n',' ')) |
++---------+------------------------------------------------+
+| John    |                                              0 |
+| Walter  |                                              0 |
+| Kuldeep |                                              0 |
++---------+------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select fname,length(fname) - length(replace(fname,'n','')) from empdetails;
++---------+-----------------------------------------------+
+| fname   | length(fname) - length(replace(fname,'n','')) |
++---------+-----------------------------------------------+
+| John    |                                             1 |
+| Walter  |                                             0 |
+| Kuldeep |                                             0 |
++---------+-----------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select empid from empsalary where Project is NULL;
+Empty set (0.00 sec)
+
+mysql> select fname from empdetails where empid in(select empid from empsalary where salary between 5000 and 10000);
++--------+
+| fname  |
++--------+
+| John   |
+| Walter |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-08-08 11:38:44 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from empdetails where DOJ between '2020-01-01' and '2020-12-31';
++-------+--------+------------+---------------------+------------+
+| empid | fname  | manager_id | DOJ                 | city       |
++-------+--------+------------+---------------------+------------+
+|   321 | Walter |        986 | 2020-01-30 00:00:00 | California |
++-------+--------+------------+---------------------+------------+
+1 row in set (0.00 sec)

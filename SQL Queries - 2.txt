@@ -1,0 +1,332 @@
+SQL Queries:
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 12 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.13 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| empdetails         |
+| empsalary          |
+| student            |
+| studentcourse      |
+| title              |
+| worker             |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> create table EmployeeInfo(Empid int,fname varchar(30),lname varchar(30),Dept varchar(30),Project varchar(30),Address varchar(30),DOB datetime,Gender
+varchar(300));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into EmployeeInfo values(1,'Sanjay','Mehra','HR','P1','Hyderabad(HYD)','1976-12-01','Male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into EmployeeInfo values(2,'Ananya','Mishra','Admin','P2','Delhi(DEL)','1968-05-02','Female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeeInfo values(3,'Rohan','Diwan','Account','P3','Mumbai(BOM)','1980-01-01','Male');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeeInfo values(4,'Sonia','Kulkarni','HR','P1','Hyderabad(HYD)','1992-05-02','Female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeeInfo values(5,'Ankit','Kapoor','Admin','P2','Delhi(DEL)','1994-07-03','Male');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EmployeeInfo;
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname    | Dept    | Project | Address        | DOB                 | Gender |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra    | HR      | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     2 | Ananya | Mishra   | Admin   | P2      | Delhi(DEL)     | 1968-05-02 00:00:00 | Female |
+|     3 | Rohan  | Diwan    | Account | P3      | Mumbai(BOM)    | 1980-01-01 00:00:00 | Male   |
+|     4 | Sonia  | Kulkarni | HR      | P1      | Hyderabad(HYD) | 1992-05-02 00:00:00 | Female |
+|     5 | Ankit  | Kapoor   | Admin   | P2      | Delhi(DEL)     | 1994-07-03 00:00:00 | Male   |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create table EmployeePos(Empid int,Emp_pos varchar(30),DOJ datetime,Salary int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into EmployeePos values(1,'Manager','2022-05-01',500000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into EmployeePos values(2,'Executive','2022-05-02',75000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeePos values(3,'Manager','2022-05-01',90000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeePos values(4,'Lead','2022-05-02',85000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EmployeePos values(5,'Executive','2022-05-01',300000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EmployeePos;
++-------+-----------+---------------------+--------+
+| Empid | Emp_pos   | DOJ                 | Salary |
++-------+-----------+---------------------+--------+
+|     1 | Manager   | 2022-05-01 00:00:00 | 500000 |
+|     2 | Executive | 2022-05-02 00:00:00 |  75000 |
+|     3 | Manager   | 2022-05-01 00:00:00 |  90000 |
+|     4 | Lead      | 2022-05-02 00:00:00 |  85000 |
+|     5 | Executive | 2022-05-01 00:00:00 | 300000 |
++-------+-----------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select upper(fname) as fname from EmployeeInfo;
++--------+
+| fname  |
++--------+
+| SANJAY |
+| ANANYA |
+| ROHAN  |
+| SONIA  |
+| ANKIT  |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select count(*) from EmployeeInfo where Dept = 'HR';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-08-12 02:45:37 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring(lname,1,4) from EmployeeInfo;
++----------------------+
+| substring(lname,1,4) |
++----------------------+
+| Mehr                 |
+| Mish                 |
+| Diwa                 |
+| Kulk                 |
+| Kapo                 |
++----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select mid(Address,6,locate('(',Address)) from EmployeeInfo;
++------------------------------------+
+| mid(Address,6,locate('(',Address)) |
++------------------------------------+
+| abad(HYD)                          |
+| (DEL)                              |
+| i(BOM)                             |
+| abad(HYD)                          |
+| (DEL)                              |
++------------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table NewTable as select * from EmployeeInfo;
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from NewTable;
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname    | Dept    | Project | Address        | DOB                 | Gender |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra    | HR      | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     2 | Ananya | Mishra   | Admin   | P2      | Delhi(DEL)     | 1968-05-02 00:00:00 | Female |
+|     3 | Rohan  | Diwan    | Account | P3      | Mumbai(BOM)    | 1980-01-01 00:00:00 | Male   |
+|     4 | Sonia  | Kulkarni | HR      | P1      | Hyderabad(HYD) | 1992-05-02 00:00:00 | Female |
+|     5 | Ankit  | Kapoor   | Admin   | P2      | Delhi(DEL)     | 1994-07-03 00:00:00 | Male   |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from EmployeePos where salary between 50000 and 100000;
++-------+-----------+---------------------+--------+
+| Empid | Emp_pos   | DOJ                 | Salary |
++-------+-----------+---------------------+--------+
+|     2 | Executive | 2022-05-02 00:00:00 |  75000 |
+|     3 | Manager   | 2022-05-01 00:00:00 |  90000 |
+|     4 | Lead      | 2022-05-02 00:00:00 |  85000 |
++-------+-----------+---------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where fname like "S%";
++-------+--------+----------+------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname    | Dept | Project | Address        | DOB                 | Gender |
++-------+--------+----------+------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra    | HR   | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     4 | Sonia  | Kulkarni | HR   | P1      | Hyderabad(HYD) | 1992-05-02 00:00:00 | Female |
++-------+--------+----------+------+---------+----------------+---------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select concat(fname,' ',lname) from EmployeeInfo;
++-------------------------+
+| concat(fname,' ',lname) |
++-------------------------+
+| Sanjay Mehra            |
+| Ananya Mishra           |
+| Rohan Diwan             |
+| Sonia Kulkarni          |
+| Ankit Kapoor            |
++-------------------------+
+5 rows in set (0.01 sec)
+
+
+mysql> select count(*) from EmployeeInfo where DOB between '1970-05-02' and '1975-12-31';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from EmployeeInfo order by fname desc, Dept asc;
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname    | Dept    | Project | Address        | DOB                 | Gender |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+|     4 | Sonia  | Kulkarni | HR      | P1      | Hyderabad(HYD) | 1992-05-02 00:00:00 | Female |
+|     1 | Sanjay | Mehra    | HR      | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     3 | Rohan  | Diwan    | Account | P3      | Mumbai(BOM)    | 1980-01-01 00:00:00 | Male   |
+|     5 | Ankit  | Kapoor   | Admin   | P2      | Delhi(DEL)     | 1994-07-03 00:00:00 | Male   |
+|     2 | Ananya | Mishra   | Admin   | P2      | Delhi(DEL)     | 1968-05-02 00:00:00 | Female |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where lname like '_____a';
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+| Empid | fname  | lname  | Dept  | Project | Address    | DOB                 | Gender |
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+|     2 | Ananya | Mishra | Admin | P2      | Delhi(DEL) | 1968-05-02 00:00:00 | Female |
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where fname not in('Sanjay','Sonia');
++-------+--------+--------+---------+---------+-------------+---------------------+--------+
+| Empid | fname  | lname  | Dept    | Project | Address     | DOB                 | Gender |
++-------+--------+--------+---------+---------+-------------+---------------------+--------+
+|     2 | Ananya | Mishra | Admin   | P2      | Delhi(DEL)  | 1968-05-02 00:00:00 | Female |
+|     3 | Rohan  | Diwan  | Account | P3      | Mumbai(BOM) | 1980-01-01 00:00:00 | Male   |
+|     5 | Ankit  | Kapoor | Admin   | P2      | Delhi(DEL)  | 1994-07-03 00:00:00 | Male   |
++-------+--------+--------+---------+---------+-------------+---------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where Address = 'Delhi(DEL)';
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+| Empid | fname  | lname  | Dept  | Project | Address    | DOB                 | Gender |
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+|     2 | Ananya | Mishra | Admin | P2      | Delhi(DEL) | 1968-05-02 00:00:00 | Female |
+|     5 | Ankit  | Kapoor | Admin | P2      | Delhi(DEL) | 1994-07-03 00:00:00 | Male   |
++-------+--------+--------+-------+---------+------------+---------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select Dept,count(Empid) as Deptcount from EmployeeInfo group by Dept order by Deptcount asc;
++---------+-----------+
+| Dept    | Deptcount |
++---------+-----------+
+| Account |         1 |
+| HR      |         2 |
+| Admin   |         2 |
++---------+-----------+
+3 rows in set (0.01 sec)
+
+
+mysql> select * from EmployeeInfo E where exists(select * from EmployeePos P where E.Empid = P.Empid);
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname    | Dept    | Project | Address        | DOB                 | Gender |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra    | HR      | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     2 | Ananya | Mishra   | Admin   | P2      | Delhi(DEL)     | 1968-05-02 00:00:00 | Female |
+|     3 | Rohan  | Diwan    | Account | P3      | Mumbai(BOM)    | 1980-01-01 00:00:00 | Male   |
+|     4 | Sonia  | Kulkarni | HR      | P1      | Hyderabad(HYD) | 1992-05-02 00:00:00 | Female |
+|     5 | Ankit  | Kapoor   | Admin   | P2      | Delhi(DEL)     | 1994-07-03 00:00:00 | Male   |
++-------+--------+----------+---------+---------+----------------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select distinct salary from EmployeePos E1 where 2 >= (select count(distinct salary) from EmployeePos E2 where E1.Salary >= E2.Salary) order by E1.Sa
+lary desc;
++--------+
+| salary |
++--------+
+|  85000 |
+|  75000 |
++--------+
+2 rows in set (0.01 sec)
+
+mysql> select distinct salary from EmployeePos E1 where 2 >= (select count(distinct salary) from EmployeePos E2 where E1.Salary <= E2.Salary) order by E1.Sa
+lary desc;
++--------+
+| salary |
++--------+
+| 500000 |
+| 300000 |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where Empid = (select max(Empid) from EmployeeInfo);
++-------+-------+--------+-------+---------+------------+---------------------+--------+
+| Empid | fname | lname  | Dept  | Project | Address    | DOB                 | Gender |
++-------+-------+--------+-------+---------+------------+---------------------+--------+
+|     5 | Ankit | Kapoor | Admin | P2      | Delhi(DEL) | 1994-07-03 00:00:00 | Male   |
++-------+-------+--------+-------+---------+------------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where Empid = (select min(Empid) from EmployeeInfo);
++-------+--------+-------+------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname | Dept | Project | Address        | DOB                 | Gender |
++-------+--------+-------+------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra | HR   | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
++-------+--------+-------+------+---------+----------------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select Dept, count(Empid) as 'EmpNo' from EmployeeInfo group by Dept having count(Dept) < 2;
++---------+-------+
+| Dept    | EmpNo |
++---------+-------+
+| Account |     1 |
++---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select Emp_pos, sum(Salary) from EmployeePos group by Emp_pos;
++-----------+-------------+
+| Emp_pos   | sum(Salary) |
++-----------+-------------+
+| Manager   |      590000 |
+| Executive |      375000 |
+| Lead      |       85000 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from EmployeeInfo where Empid <= (select count(Empid)/2 from EmployeeInfo);
++-------+--------+--------+-------+---------+----------------+---------------------+--------+
+| Empid | fname  | lname  | Dept  | Project | Address        | DOB                 | Gender |
++-------+--------+--------+-------+---------+----------------+---------------------+--------+
+|     1 | Sanjay | Mehra  | HR    | P1      | Hyderabad(HYD) | 1976-12-01 00:00:00 | Male   |
+|     2 | Ananya | Mishra | Admin | P2      | Delhi(DEL)     | 1968-05-02 00:00:00 | Female |
++-------+--------+--------+-------+---------+----------------+---------------------+--------+
+2 rows in set (0.01 sec)

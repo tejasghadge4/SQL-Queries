@@ -1,0 +1,407 @@
+SQL Queries:
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 15 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| empdetails         |
+| employeeinfo       |
+| employeepos        |
+| empsalary          |
+| newtable           |
+| student            |
+| studentcourse      |
+| title              |
+| worker             |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| empdetails         |
+| employeeinfo       |
+| employeepos        |
+| empsalary          |
+| newtable           |
+| studentcourse      |
+| title              |
+| worker             |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> create table student(s_id int,stu_name varchar(300),stu_subject_id varchar(300),stu_marks int,stu_Age int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student values(101,'Akhil','BCA101',85,20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(102,'Balram','BCA104',78,19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(103,'Bheem','BCA102',80,22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(104,'Chetan','BCA103',95,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(105,'Diksha','BCA104',99,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(106,'Raman','BCA105',88,19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(107,'Sheetal','BCA103',98,22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> create table subject(subject_id int,subject_name varchar(300));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table subject;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table subject(subject_id varchar(300),subject_name varchar(300));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into subject values('BCA101','C');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('BCA102','C++');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('BCA103','Principle of Management');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('BCA104','Core Java');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('BCA105','Math');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into subject values('BCA106','Android');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from subject;
++------------+-------------------------+
+| subject_id | subject_name            |
++------------+-------------------------+
+| BCA101     | C                       |
+| BCA102     | C++                     |
+| BCA103     | Principle of Management |
+| BCA104     | Core Java               |
+| BCA105     | Math                    |
+| BCA106     | Android                 |
++------------+-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where stu_Age = 20;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
++------+----------+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+
+mysql> select max(stu_marks),min(stu_marks) from student;
++----------------+----------------+
+| max(stu_marks) | min(stu_marks) |
++----------------+----------------+
+|             99 |             78 |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from student where s_id = 101;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
++------+----------+----------------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where s_id = 107;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student limit 5;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
++------+----------+----------------+-----------+---------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from subject last limit 4;
++------------+-------------------------+
+| subject_id | subject_name            |
++------------+-------------------------+
+| BCA101     | C                       |
+| BCA102     | C++                     |
+| BCA103     | Principle of Management |
+| BCA104     | Core Java               |
++------------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> (select * from subject order by subject_id desc limit 5) order by subject_id asc;
++------------+-------------------------+
+| subject_id | subject_name            |
++------------+-------------------------+
+| BCA102     | C++                     |
+| BCA103     | Principle of Management |
+| BCA104     | Core Java               |
+| BCA105     | Math                    |
+| BCA106     | Android                 |
++------------+-------------------------+
+5 rows in set (0.00 sec)
+
+mysql> (select * from subject order by subject_id desc limit 4) order by subject_id asc;
++------------+-------------------------+
+| subject_id | subject_name            |
++------------+-------------------------+
+| BCA103     | Principle of Management |
+| BCA104     | Core Java               |
+| BCA105     | Math                    |
+| BCA106     | Android                 |
++------------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where MOD(s_id,2) = 0;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
++------+----------+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where MOD(s_id,2) = 1;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table Stu_table select * from student;
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from Stu_table;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select max(stu_marks) from student where stu_marks not in(select(stu_marks) from student);
++----------------+
+| max(stu_marks) |
++----------------+
+|           NULL |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select max(stu_marks) from student where stu_marks not in(select max(stu_marks) from student);
++----------------+
+| max(stu_marks) |
++----------------+
+|             98 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-08-15 18:19:26 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select stu_name,stu_marks from student where stu_Age = 20;
++----------+-----------+
+| stu_name | stu_marks |
++----------+-----------+
+| Akhil    |        85 |
+| Chetan   |        95 |
+| Diksha   |        99 |
++----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student where stu_marks > 82 and stu_Age = 22;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where stu_name like '%m';
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
++------+----------+----------------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select stu_subject_id, count(stu_subject_id) as 'Number of Students' from student group by stu_subject_id;
++----------------+--------------------+
+| stu_subject_id | Number of Students |
++----------------+--------------------+
+| BCA101         |                  1 |
+| BCA104         |                  2 |
+| BCA102         |                  1 |
+| BCA103         |                  2 |
+| BCA105         |                  1 |
++----------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select upper(stu_name) from student;
++-----------------+
+| upper(stu_name) |
++-----------------+
+| AKHIL           |
+| BALRAM          |
+| BHEEM           |
+| CHETAN          |
+| DIKSHA          |
+| RAMAN           |
+| SHEETAL         |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct(stu_Age) from student;
++---------+
+| stu_Age |
++---------+
+|      20 |
+|      19 |
+|      22 |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select substring(stu_name,1,2) from student;
++-------------------------+
+| substring(stu_name,1,2) |
++-------------------------+
+| Ak                      |
+| Ba                      |
+| Bh                      |
+| Ch                      |
+| Di                      |
+| Ra                      |
+| Sh                      |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student order by stu_name desc;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  107 | Sheetal  | BCA103         |        98 |      22 |
+|  106 | Raman    | BCA105         |        88 |      19 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  101 | Akhil    | BCA101         |        85 |      20 |
++------+----------+----------------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select avg(stu_marks) from student;
++----------------+
+| avg(stu_marks) |
++----------------+
+|        89.0000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> create view stu_Age as select stu_name,stu_Age from student where stu_marks < 85;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from stu_Age;
++----------+---------+
+| stu_name | stu_Age |
++----------+---------+
+| Balram   |      19 |
+| Bheem    |      22 |
++----------+---------+
+2 rows in set (0.00 sec)

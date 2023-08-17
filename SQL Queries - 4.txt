@@ -1,0 +1,149 @@
+SQL Queries: Views in SQL.
+
+//////////////////////////////////////////////////////////////////////////
+
+Author - Tejas Ghadge.
+Date - 17 August 2023.
+
+//////////////////////////////////////////////////////////////////////////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| empdetails         |
+| employeeinfo       |
+| employeepos        |
+| empsalary          |
+| newtable           |
+| stu_age            |
+| stu_table          |
+| student            |
+| studentcourse      |
+| subject            |
+| title              |
+| worker             |
++--------------------+
+13 rows in set (0.01 sec)
+
+
+
+mysql> create table Student_details(stu_id int,fname varchar(10),address varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into Student_details values(1,'Stephan','Delhi');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_details values(2,'Kathrin','Noida');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Student_details values(3,'David','Ghaziabad');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Student_details values(4,'Alina','Gurugram');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Student_details;
++--------+---------+-----------+
+| stu_id | fname   | address   |
++--------+---------+-----------+
+|      1 | Stephan | Delhi     |
+|      2 | Kathrin | Noida     |
+|      3 | David   | Ghaziabad |
+|      4 | Alina   | Gurugram  |
++--------+---------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> create table Student_marks(stu_id int,fname varchar(10),marks int,age int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into Student_marks values(1,'Stephan',97,19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_marks values(2,'Kathrin',86,21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Student_marks values(3,'David',74,18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Student_marks values(4,'Alina',90,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Student_marks values(5,'John',96,18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Student_marks;
++--------+---------+-------+------+
+| stu_id | fname   | marks | age  |
++--------+---------+-------+------+
+|      1 | Stephan |    97 |   19 |
+|      2 | Kathrin |    86 |   21 |
+|      3 | David   |    74 |   18 |
+|      4 | Alina   |    90 |   20 |
+|      5 | John    |    96 |   18 |
++--------+---------+-------+------+
+5 rows in set (0.00 sec)
+
+
+
+1.Creating view of Single table.
+
+
+mysql> create view DetailsView as select fname,address from Student_details where stu_id < 4;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from DetailsView;
++---------+-----------+
+| fname   | address   |
++---------+-----------+
+| Stephan | Delhi     |
+| Kathrin | Noida     |
+| David   | Ghaziabad |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+2. Creating Views from multiple tables.
+
+mysql> create view MarksView as select Student_details.fname,Student_details.address,Student_marks.marks from Student_details,Student_marks where Student_details.fname = Student_marks.fname;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from MarksView;
++---------+-----------+-------+
+| fname   | address   | marks |
++---------+-----------+-------+
+| Stephan | Delhi     |    97 |
+| Kathrin | Noida     |    86 |
+| David   | Ghaziabad |    74 |
+| Alina   | Gurugram  |    90 |
++---------+-----------+-------+
+4 rows in set (0.00 sec)
+
+
+
+3.Removing the view table.
+
+mysql> drop view MarksView;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from MarksView;
+ERROR 1146 (42S02): Table 'practise.marksview' doesn't exist
+

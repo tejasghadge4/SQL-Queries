@@ -1,0 +1,139 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practise           |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| bonus              |
+| detailsview        |
+| empdetails         |
+| employeeinfo       |
+| employeepos        |
+| empsalary          |
+| newtable           |
+| stu_age            |
+| stu_table          |
+| student            |
+| student_details    |
+| student_marks      |
+| studentcourse      |
+| subject            |
+| title              |
+| worker             |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from stu_table;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+7 rows in set (0.01 sec)
+
+mysql> select * from subject;
++------------+-------------------------+
+| subject_id | subject_name            |
++------------+-------------------------+
+| BCA101     | C                       |
+| BCA102     | C++                     |
+| BCA103     | Principle of Management |
+| BCA104     | Core Java               |
+| BCA105     | Math                    |
+| BCA106     | Android                 |
++------------+-------------------------+
+6 rows in set (0.00 sec)
+
+
+1. Write sql query to find 5th highest marks from student table.
+
+mysql> select distinct s_id,stu_name,stu_marks from stu_table order by stu_marks desc limit 1 offset 4;
++------+----------+-----------+
+| s_id | stu_name | stu_marks |
++------+----------+-----------+
+|  101 | Akhil    |        85 |
++------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+2. Write sql query to find 2nd highest marks from student table.
+
+mysql> select distinct s_id,stu_name,stu_marks from stu_table order by stu_marks desc limit 1 offset 1;
++------+----------+-----------+
+| s_id | stu_name | stu_marks |
++------+----------+-----------+
+|  107 | Sheetal  |        98 |
++------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+3. Write sql query to find first three maximum marks from student table.
+
+mysql> select distinct s_id,stu_name,stu_marks from stu_table order by stu_marks desc limit 3;
++------+----------+-----------+
+| s_id | stu_name | stu_marks |
++------+----------+-----------+
+|  105 | Diksha   |        99 |
+|  107 | Sheetal  |        98 |
+|  104 | Chetan   |        95 |
++------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+4. Write sql query to find first three minimum marks from student table.
+
+mysql> select distinct s_id,stu_name,stu_marks from stu_table order by stu_marks asc limit 3;
++------+----------+-----------+
+| s_id | stu_name | stu_marks |
++------+----------+-----------+
+|  102 | Balram   |        78 |
+|  103 | Bheem    |        80 |
+|  101 | Akhil    |        85 |
++------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+5. Write sql query to display even number of rows.
+
+mysql> select * from stu_table where s_id % 2 = 0;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  102 | Balram   | BCA104         |        78 |      19 |
+|  104 | Chetan   | BCA103         |        95 |      20 |
+|  106 | Raman    | BCA105         |        88 |      19 |
++------+----------+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+
+5. Write sql query to display odd number of rows.
+
+
+mysql> select * from stu_table where s_id % 2 = 1;
++------+----------+----------------+-----------+---------+
+| s_id | stu_name | stu_subject_id | stu_marks | stu_Age |
++------+----------+----------------+-----------+---------+
+|  101 | Akhil    | BCA101         |        85 |      20 |
+|  103 | Bheem    | BCA102         |        80 |      22 |
+|  105 | Diksha   | BCA104         |        99 |      20 |
+|  107 | Sheetal  | BCA103         |        98 |      22 |
++------+----------+----------------+-----------+---------+
+4 rows in set (0.00 sec)

@@ -1,0 +1,139 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| class              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| student            |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.11 sec)
+
+mysql> use student;
+Database changed
+
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| employee          |
++-------------------+
+1 row in set (0.02 sec)
+
+mysql> create table Student(StudentID int,Fname varchar(10),Lname varchar(10),DOB date,Gender varchar(10),Grade varchar(5),Major varchar(20));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> insert into Student values(1, 'Alice', 'Johnson', '1999-04-15', 'F', 'A', 'Computer Science');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Student values(2, 'Bob', 'Smith', '2001-11-22', 'M', 'B', 'Mathematics');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student values(3, 'Carol', 'Davis', '1998-07-30', 'F', 'A', 'Physics');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student values(4, 'David', 'Brown', '2000-02-19', 'M', 'C', 'Computer Science');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student values(5, 'Eve', 'Wilson', '1997-12-05', 'F', 'B', 'Biology');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Student;
++-----------+-------+---------+------------+--------+-------+------------------+
+| StudentID | Fname | Lname   | DOB        | Gender | Grade | Major            |
++-----------+-------+---------+------------+--------+-------+------------------+
+|         1 | Alice | Johnson | 1999-04-15 | F      | A     | Computer Science |
+|         2 | Bob   | Smith   | 2001-11-22 | M      | B     | Mathematics      |
+|         3 | Carol | Davis   | 1998-07-30 | F      | A     | Physics          |
+|         4 | David | Brown   | 2000-02-19 | M      | C     | Computer Science |
+|         5 | Eve   | Wilson  | 1997-12-05 | F      | B     | Biology          |
++-----------+-------+---------+------------+--------+-------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> select Fname,Lname,Major from Student where Major = 'Computer Science';
++-------+---------+------------------+
+| Fname | Lname   | Major            |
++-------+---------+------------------+
+| Alice | Johnson | Computer Science |
+| David | Brown   | Computer Science |
++-------+---------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Student where Grade = 'A';
++-----------+-------+---------+------------+--------+-------+------------------+
+| StudentID | Fname | Lname   | DOB        | Gender | Grade | Major            |
++-----------+-------+---------+------------+--------+-------+------------------+
+|         1 | Alice | Johnson | 1999-04-15 | F      | A     | Computer Science |
+|         3 | Carol | Davis   | 1998-07-30 | F      | A     | Physics          |
++-----------+-------+---------+------------+--------+-------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select Fname,DOB from Student where DOB < '2000-01-01';
++-------+------------+
+| Fname | DOB        |
++-------+------------+
+| Alice | 1999-04-15 |
+| Carol | 1998-07-30 |
+| Eve   | 1997-12-05 |
++-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update Student set major = 'Mathematics' where Lname = 'Johnson';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Student;
++-----------+-------+---------+------------+--------+-------+------------------+
+| StudentID | Fname | Lname   | DOB        | Gender | Grade | Major            |
++-----------+-------+---------+------------+--------+-------+------------------+
+|         1 | Alice | Johnson | 1999-04-15 | F      | A     | Mathematics      |
+|         2 | Bob   | Smith   | 2001-11-22 | M      | B     | Mathematics      |
+|         3 | Carol | Davis   | 1998-07-30 | F      | A     | Physics          |
+|         4 | David | Brown   | 2000-02-19 | M      | C     | Computer Science |
+|         5 | Eve   | Wilson  | 1997-12-05 | F      | B     | Biology          |
++-----------+-------+---------+------------+--------+-------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table Student add column Email varchar(10);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Student;
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+| StudentID | Fname | Lname   | DOB        | Gender | Grade | Major            | Email |
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+|         1 | Alice | Johnson | 1999-04-15 | F      | A     | Mathematics      | NULL  |
+|         2 | Bob   | Smith   | 2001-11-22 | M      | B     | Mathematics      | NULL  |
+|         3 | Carol | Davis   | 1998-07-30 | F      | A     | Physics          | NULL  |
+|         4 | David | Brown   | 2000-02-19 | M      | C     | Computer Science | NULL  |
+|         5 | Eve   | Wilson  | 1997-12-05 | F      | B     | Biology          | NULL  |
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table Student modify Grade varchar(2);
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Student;
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+| StudentID | Fname | Lname   | DOB        | Gender | Grade | Major            | Email |
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+|         1 | Alice | Johnson | 1999-04-15 | F      | A     | Mathematics      | NULL  |
+|         2 | Bob   | Smith   | 2001-11-22 | M      | B     | Mathematics      | NULL  |
+|         3 | Carol | Davis   | 1998-07-30 | F      | A     | Physics          | NULL  |
+|         4 | David | Brown   | 2000-02-19 | M      | C     | Computer Science | NULL  |
+|         5 | Eve   | Wilson  | 1997-12-05 | F      | B     | Biology          | NULL  |
++-----------+-------+---------+------------+--------+-------+------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select Fname,Lname,Grade from Student where Major  = 'Physics' and Grade < 'B';
++-------+-------+-------+
+| Fname | Lname | Grade |
++-------+-------+-------+
+| Carol | Davis | A     |
++-------+-------+-------+
+1 row in set (0.00 sec)

@@ -1,0 +1,193 @@
+1. create a relational table using primary key and forign key with 
+
+a.employee and b.hrdepartment table 
+b.students and department 
+cemployee and salary table.
+
+use class;
+
+CREATE TABLE Employees (
+    empid INT PRIMARY KEY,       
+    name VARCHAR(50),
+    designation VARCHAR(50)
+);
+
+CREATE TABLE HRDepartment (
+    deptid INT PRIMARY KEY,       
+    deptname VARCHAR(50),
+    empid INT,                   
+    FOREIGN KEY (empid) REFERENCES Employee(empid)
+);
+
+INSERT INTO Employees (empid, name, designation) VALUES
+(1, 'John Doe', 'Manager'),
+(2, 'Jane Smith', 'HR Specialist'),
+(3, 'Mike Johnson', 'Developer');
+
+INSERT INTO HRDepartment (deptid, deptname, empid) VALUES
+(101, 'Human Resources', 1),
+(102, 'Recruitment', 2),
+(103, 'Training', 3);
+
+alter table HRDepartment rename column empid to empids;
+
+select empid,name,designation,deptid,deptname,empids
+from Employees,HRDepartment
+where Employees.empid = HRDepartment.empids;
+
+
+CREATE TABLE Students (
+    studentid INT PRIMARY KEY,    
+    name VARCHAR(50),
+    age INT
+);
+
+CREATE TABLE Department (
+    deptid INT PRIMARY KEY,      
+    deptname VARCHAR(50),
+    studentid INT,               
+    FOREIGN KEY (studentid) REFERENCES Students(studentid)
+);
+
+INSERT INTO Students (studentid, name, age) VALUES
+(201, 'Alice Brown', 20),
+(202, 'Bob White', 21),
+(203, 'Charlie Green', 22);
+
+INSERT INTO Department (deptid, deptname, studentid) VALUES
+(301, 'Computer Science', 201),
+(302, 'Mechanical Engineering', 202),
+(303, 'Electrical Engineering', 203);
+
+alter table Department rename column studentid to studentids;
+
+select studentid,name,age,deptid,deptname,studentids
+from Students,Department
+where Students.studentid = Department.studentids;
+
+
+CREATE TABLE Employeess (
+    empid INT PRIMARY KEY,       
+    name VARCHAR(50),
+    designation VARCHAR(50)
+);
+
+CREATE TABLE Salary (
+    salaryid INT PRIMARY KEY,     
+    empid INT,                    
+    amount INT,
+    paydate DATE,
+    FOREIGN KEY (empid) REFERENCES Employee(empid)
+);
+
+INSERT INTO Employeess (empid, name, designation) VALUES
+(1, 'John Doe', 'Manager'),
+(2, 'Jane Smith', 'HR Specialist'),
+(3, 'Mike Johnson', 'Developer');
+
+INSERT INTO Salary (salaryid, empid, amount, paydate) VALUES
+(401, 1, 60000.00, '2024-08-01'),
+(402, 2, 45000.00, '2024-08-01'),
+(403, 3, 50000.00, '2024-08-01');
+
+alter table Salary rename column empid to empids;
+
+select empid,name,designation,salaryid,empids,amount,paydate
+from Employeess,Salary
+where Employeess.empid = Salary.empids;
+
+
+
+2. create table for check constraints lakdabhau,ladkibahin,valid voting.
+
+use class;
+
+ create table election(
+    VoterID int primary key not null,
+    Name varchar(20) not null,
+    City varchar(20) not null,
+    Age int not null,
+    check (Age>18)
+);
+
+insert into election(VoterID,Name,City,Age) values
+(1,"Tejas","Pune",21),
+(2,"Pratham","Pimpri",24),
+(3,"Anish","Shivajinagar",19),
+(4,"Karan","Hadapsar",23),
+(5,"Rohan","Phursungi",25);
+
+select * from election;
+
+
+create table ladkiBahin(
+    name varchar(20) not null,
+    city varchar(20) not null,
+    age int not null,
+    income int not null,
+    check(age > 21 and income < 100000)
+);
+
+insert into ladkiBahin(name,city,age,income) values
+('Sakshi','Pune',23,50000),
+('Priya','Nagpur',24,90000),
+('Shruti','Nagar',22,60000),
+('Ritika','Mumbai',26,70000);
+('Akansha','latur',25,50000);
+
+select * from ladkiBahin;
+
+
+create table ladkaBhau(
+    name varchar(20) not null,
+    city varchar(20) not null,
+    age int not null,
+    income int not null,
+    check(age > 22 and income < 200000)
+);
+
+insert into ladkiBhau(name,city,age,income) values
+('Anish','Pune',23,50000),
+('Karan','Nagpur',24,90000),
+('Pratham','Nagar',22,60000),
+('Tejas','Mumbai',26,70000);
+('Vedant','latur',25,50000);
+
+select * from ladkaBhau;
+
+
+3. create table for default constraints for pincode and university.
+
+use class;
+
+create table person3(
+     Rollno int primary key,
+     name varchar(10) not null,
+     age int not null,
+     pincode int default 412308
+);
+
+insert into person3(Rollno,name,age) values
+(1,'Tejas',22),
+(2,'Shruti',23),
+(3,'Priya',21),
+(4,'Rashmi',24),
+(5,'Anish',25);
+
+select * from person3;
+
+create table info(
+    Rollno int primary key,
+    name varchar(10) not null,
+    age int not null,
+    university varchar(50) default 'Pune University'
+);
+
+insert into info(Rollno,name,age) values
+(1,'Pratham',21),
+(2,'Anish',25),
+(3,'Karan',24),
+(4,'Tejas',22),
+(5,'Vedant',23);
+
+select * from info;

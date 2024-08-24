@@ -1,0 +1,260 @@
+1. Create table student and add date of birth.
+
+mysql> select * from student;
++---------+--------+---------+-------+
+| sname   | rollno | city    | marks |
++---------+--------+---------+-------+
+| Tejas   |      1 | kolkata |    89 |
+| Anish   |      2 | mumbai  |    76 |
+| Karan   |      3 | nagpur  |    83 |
+| Pratham |      4 | satara  |    79 |
++---------+--------+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> alter table student add column DOB date;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++---------+--------+---------+-------+------+
+| sname   | rollno | city    | marks | DOB  |
++---------+--------+---------+-------+------+
+| Tejas   |      1 | kolkata |    89 | NULL |
+| Anish   |      2 | mumbai  |    76 | NULL |
+| Karan   |      3 | nagpur  |    83 | NULL |
+| Pratham |      4 | satara  |    79 | NULL |
++---------+--------+---------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> update student set DOB = '2024-08-24' where rollno = 1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set DOB = '2023-04-14' where rollno = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set DOB = '2021-12-30' where rollno = 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set DOB = '2022-07-18' where rollno = 4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++---------+--------+---------+-------+------------+
+| sname   | rollno | city    | marks | DOB        |
++---------+--------+---------+-------+------------+
+| Tejas   |      1 | kolkata |    89 | 2024-08-24 |
+| Anish   |      2 | mumbai  |    76 | 2023-04-14 |
+| Karan   |      3 | nagpur  |    83 | 2021-12-30 |
+| Pratham |      4 | satara  |    79 | 2022-07-18 |
++---------+--------+---------+-------+------------+
+4 rows in set (0.00 sec)
+
+
+
+2. Create two table using Auto increment constrainst.
+
+mysql> create table StudentInfo(Rollno int auto_increment primary key,Name varchar(20) not null,City varchar(20) not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into StudentInfo values(1,"Tejas","Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into StudentInfo (Name,City) values("Karan","Mumbai");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into StudentInfo (Name,City) values("Pratham","Satara");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into StudentInfo (Name,City) values("Anish","Nagar");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into StudentInfo (Name,City) values("Vedant","Kolkata");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from StudentInfo;
++--------+---------+---------+
+| Rollno | Name    | City    |
++--------+---------+---------+
+|      1 | Tejas   | Pune    |
+|      2 | Karan   | Mumbai  |
+|      3 | Pratham | Satara  |
+|      4 | Anish   | Nagar   |
+|      5 | Vedant  | Kolkata |
++--------+---------+---------+
+5 rows in set (0.00 sec)
+
+
+mysql> create table Orders(OrderID int auto_increment primary key,Name varchar(20) not null,Address varchar(20) not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into Orders values(1,"Karan","Delhi");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Orders (Name,Address) values("Vedant","Kolkata");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Orders (Name,Address) values("Pratham","Mumbai");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Orders (Name,Address) values("Anish","Noida");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Orders (Name,Address) values("Tejas","Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Orders;
++---------+---------+---------+
+| OrderID | Name    | Address |
++---------+---------+---------+
+|       1 | Karan   | Delhi   |
+|       2 | Vedant  | Kolkata |
+|       3 | Pratham | Mumbai  |
+|       4 | Anish   | Noida   |
+|       5 | Tejas   | Pune    |
++---------+---------+---------+
+5 rows in set (0.00 sec)
+
+
+3. Extract data using where clause in student table.
+
+mysql> select * from students;
++-----------+---------------+------+
+| studentid | name          | age  |
++-----------+---------------+------+
+|       201 | Alice Brown   |   20 |
+|       202 | Bob White     |   21 |
+|       203 | Charlie Green |   22 |
+|       204 | Tony Shark    |   23 |
+|       205 | John Deo      |   24 |
++-----------+---------------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students where name="Alice Brown";
++-----------+-------------+------+
+| studentid | name        | age  |
++-----------+-------------+------+
+|       201 | Alice Brown |   20 |
++-----------+-------------+------+
+1 row in set (0.00 sec)
+
+mysql> update students set age=25 where studentid=201;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from students;
++-----------+---------------+------+
+| studentid | name          | age  |
++-----------+---------------+------+
+|       201 | Alice Brown   |   25 |
+|       202 | Bob White     |   21 |
+|       203 | Charlie Green |   22 |
+|       204 | Tony Shark    |   23 |
+|       205 | John Deo      |   24 |
++-----------+---------------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students where studentid=204;
++-----------+------------+------+
+| studentid | name       | age  |
++-----------+------------+------+
+|       204 | Tony Shark |   23 |
++-----------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> delete from students where studentid=205;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students;
++-----------+---------------+------+
+| studentid | name          | age  |
++-----------+---------------+------+
+|       201 | Alice Brown   |   25 |
+|       202 | Bob White     |   21 |
+|       203 | Charlie Green |   22 |
+|       204 | Tony Shark    |   23 |
++-----------+---------------+------+
+4 rows in set (0.00 sec)
+
+
+4. JOINS on Orders and Customer.
+
+
+create table customer(
+    customerID int unique not null,
+    customerName varchar(10) not null,
+    ContactNumber int not null
+);
+
+insert into customer(customerID,customerName,ContactNumber) values
+(1,"Tejas",123-456-7890),
+(2,"Pratham",234-567-8901),
+(3,"Anish",345-678-9012),
+(4,"Karan",456-789-0123);
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL UNIQUE,
+    OrderDate date NOT NULL,
+    customerID int NOT NULL
+);
+
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (101, '2024-08-01', 1);
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (102, '2024-08-03', 2);
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (103, '2024-08-05', 1);
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (104, '2024-08-07', 3);
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (105, '2024-08-09', 4);
+
+
+a. INNER JOIN
+
+select * from 
+customer 
+INNER JOIN 
+Orders on 
+customer.customerID = Orders.CustomerID;
+
+b. LEFT JOIN
+
+select * from 
+customer 
+LEFT JOIN 
+Orders on 
+customer.customerID = Orders.CustomerID;
+
+c. RIGHT JOIN
+
+select * from 
+customer 
+RIGHT JOIN 
+Orders on 
+customer.customerID = Orders.CustomerID;
+
+
+d. FULL JOIN
+
+
+SELECT 
+    customer.*, 
+    Orders.*
+FROM 
+    customer
+LEFT JOIN 
+    Orders 
+ON 
+    customer.CustomerID = Orders.CustomerID
+
+UNION
+
+SELECT 
+    customer.*, 
+    Orders.*
+FROM 
+    customer
+RIGHT JOIN 
+    Orders 
+ON 
+    customer.CustomerID = Orders.CustomerID;
+

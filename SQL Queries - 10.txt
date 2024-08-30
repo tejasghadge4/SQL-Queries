@@ -1,0 +1,200 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| class              |
+| clause             |
+| information_schema |
+| joins              |
+| mysql              |
+| performance_schema |
+| sakila             |
+| student            |
+| sys                |
+| views              |
+| world              |
++--------------------+
+11 rows in set (0.01 sec)
+
+mysql> create database practise;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use practise;
+Database changed
+mysql> create table Employees (
+    -> ID int primary key,
+    -> Name varchar(10),
+    -> Department varchar(10),
+    -> Salary decimal(10,2),
+    -> HireDate date
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into Employees(ID, Name, Department, Salary, HireDate) values
+    -> (1,'John Doe','HR',50000,'2021-01-15'),
+    -> (2,'Jane Smith','IT',65000,'2020-08-23'),
+    -> (3,'Sam Brown','Finance',70000,'2019-11-30'),
+    -> (4,'Emily Diva','IT',72000,'2022-03-01'),
+    -> (5,'John Davis','HR',48000,'2020-04-18');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  1 | John Doe   | HR         | 50000.00 | 2021-01-15 |
+|  2 | Jane Smith | IT         | 65000.00 | 2020-08-23 |
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
+|  5 | John Davis | HR         | 48000.00 | 2020-04-18 |
++----+------------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,salary from employees;
++------------+----------+
+| name       | salary   |
++------------+----------+
+| John Doe   | 50000.00 |
+| Jane Smith | 65000.00 |
+| Sam Brown  | 70000.00 |
+| Emily Diva | 72000.00 |
+| John Davis | 48000.00 |
++------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employees where salary > 60000;
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  2 | Jane Smith | IT         | 65000.00 | 2020-08-23 |
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
++----+------------+------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees where HireDate > '2021-01-01';
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  1 | John Doe   | HR         | 50000.00 | 2021-01-15 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
++----+------------+------------+----------+------------+
+2 rows in set (0.01 sec)
+
+mysql> update employees set salary = 55000 where name = 'John Doe';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  1 | John Doe   | HR         | 55000.00 | 2021-01-15 |
+|  2 | Jane Smith | IT         | 65000.00 | 2020-08-23 |
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
+|  5 | John Davis | HR         | 48000.00 | 2020-04-18 |
++----+------------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from employees where id = 5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  1 | John Doe   | HR         | 55000.00 | 2021-01-15 |
+|  2 | Jane Smith | IT         | 65000.00 | 2020-08-23 |
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
++----+------------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(salary) as AverageSalary from employees;
++---------------+
+| AverageSalary |
++---------------+
+|  65500.000000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as TotalEmployees from employees;
++----------------+
+| TotalEmployees |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> select max(salary) as HighestSalary from employees where department = "IT";
++---------------+
+| HighestSalary |
++---------------+
+|      72000.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) as TotalHRSalary from employees where department = 'HR';
++---------------+
+| TotalHRSalary |
++---------------+
+|      55000.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees where salary > (select avg(salary) from employees);
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
++----+------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select Department, count(*) from employees group by department;
++------------+----------+
+| Department | count(*) |
++------------+----------+
+| HR         |        1 |
+| IT         |        2 |
+| Finance    |        1 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees order by salary desc;
++----+------------+------------+----------+------------+
+| ID | Name       | Department | Salary   | HireDate   |
++----+------------+------------+----------+------------+
+|  4 | Emily Diva | IT         | 72000.00 | 2022-03-01 |
+|  3 | Sam Brown  | Finance    | 70000.00 | 2019-11-30 |
+|  2 | Jane Smith | IT         | 65000.00 | 2020-08-23 |
+|  1 | John Doe   | HR         | 55000.00 | 2021-01-15 |
++----+------------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT Department, SUM(Salary) AS TotalSalary
+    -> FROM Employees
+    -> GROUP BY Department
+    -> HAVING SUM(Salary) > 60000;
++------------+-------------+
+| Department | TotalSalary |
++------------+-------------+
+| IT         |   137000.00 |
+| Finance    |    70000.00 |
++------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select department,salary
+    -> from employees
+    -> where salary > 60000
+    -> group by department,salary;
++------------+----------+
+| department | salary   |
++------------+----------+
+| IT         | 65000.00 |
+| Finance    | 70000.00 |
+| IT         | 72000.00 |
++------------+----------+
+3 rows in set (0.00 sec)

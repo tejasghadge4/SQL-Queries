@@ -1,0 +1,245 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| class              |
+| clause             |
+| information_schema |
+| joins              |
+| mysql              |
+| performance_schema |
+| practise           |
+| sakila             |
+| student            |
+| sys                |
+| views              |
+| world              |
++--------------------+
+12 rows in set (0.06 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| employees          |
+| sales              |
++--------------------+
+2 rows in set (0.01 sec)
+
+mysql> create table customers(
+    -> ID int,
+    -> Name varchar(20),
+    -> Age int,
+    -> Address varchar(20),
+    -> Salary decimal(10,2)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into customers (ID,Name,Age,Address,Salary) values
+    -> (1, 'Tejas', 22, 'Pune', 2000.00),
+    -> (2, 'Anish', 24, 'Delhi', 1500.00),
+    -> (3, 'Karan', 21, 'Kolkata', 2000.00),
+    -> (4, 'Pratham', 20, 'Mumbai', 6500.00),
+    -> (5, 'Rashmi', 23, 'Indore', 8500.00),
+    -> (6, 'Shruti', 25, 'Hydrabad', 4500.00),
+    -> (7, 'Priyanka', 22, 'Bengaluru', 10000.00);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++------+----------+------+-----------+----------+
+| ID   | Name     | Age  | Address   | Salary   |
++------+----------+------+-----------+----------+
+|    1 | Tejas    |   22 | Pune      |  2000.00 |
+|    2 | Anish    |   24 | Delhi     |  1500.00 |
+|    3 | Karan    |   21 | Kolkata   |  2000.00 |
+|    4 | Pratham  |   20 | Mumbai    |  6500.00 |
+|    5 | Rashmi   |   23 | Indore    |  8500.00 |
+|    6 | Shruti   |   25 | Hydrabad  |  4500.00 |
+|    7 | Priyanka |   22 | Bengaluru | 10000.00 |
++------+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> create table orders(
+    -> OID int,
+    -> Date date,
+    -> Customers_ID int,
+    -> Amount int
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into orders (OID,Date,Customers_ID,Amount) values
+    -> (102, '2009-10-08', 3, 3000),
+    -> (100, '2009-10-08', 3, 1500),
+    -> (101, '2009-11-20', 2, 1560),
+    -> (103, '2008-05-20', 4, 2060);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from orders;
++------+------------+--------------+--------+
+| OID  | Date       | Customers_ID | Amount |
++------+------------+--------------+--------+
+|  102 | 2009-10-08 |            3 |   3000 |
+|  100 | 2009-10-08 |            3 |   1500 |
+|  101 | 2009-11-20 |            2 |   1560 |
+|  103 | 2008-05-20 |            4 |   2060 |
++------+------------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select ID,Name,Age,Amount
+    -> from customers,orders
+    -> where customers.ID = orders.customers_ID;
++------+---------+------+--------+
+| ID   | Name    | Age  | Amount |
++------+---------+------+--------+
+|    2 | Anish   |   24 |   1560 |
+|    3 | Karan   |   21 |   1500 |
+|    3 | Karan   |   21 |   3000 |
+|    4 | Pratham |   20 |   2060 |
++------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers
+    -> inner join orders
+    -> on customers.ID = orders.customers_ID;
++------+---------+--------+------------+
+| ID   | Name    | Amount | Date       |
++------+---------+--------+------------+
+|    2 | Anish   |   1560 | 2009-11-20 |
+|    3 | Karan   |   1500 | 2009-10-08 |
+|    3 | Karan   |   3000 | 2009-10-08 |
+|    4 | Pratham |   2060 | 2008-05-20 |
++------+---------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers
+    -> left join orders
+    -> on customers.ID = orders.customers_ID;
++------+----------+--------+------------+
+| ID   | Name     | Amount | Date       |
++------+----------+--------+------------+
+|    1 | Tejas    |   NULL | NULL       |
+|    2 | Anish    |   1560 | 2009-11-20 |
+|    3 | Karan    |   1500 | 2009-10-08 |
+|    3 | Karan    |   3000 | 2009-10-08 |
+|    4 | Pratham  |   2060 | 2008-05-20 |
+|    5 | Rashmi   |   NULL | NULL       |
+|    6 | Shruti   |   NULL | NULL       |
+|    7 | Priyanka |   NULL | NULL       |
++------+----------+--------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers
+    -> right join orders
+    -> on customers.ID = orders.customers_ID;
++------+---------+--------+------------+
+| ID   | Name    | Amount | Date       |
++------+---------+--------+------------+
+|    3 | Karan   |   3000 | 2009-10-08 |
+|    3 | Karan   |   1500 | 2009-10-08 |
+|    2 | Anish   |   1560 | 2009-11-20 |
+|    4 | Pratham |   2060 | 2008-05-20 |
++------+---------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers
+    -> left join orders
+    -> on customers.ID = orders.customers_ID
+    -> union
+    -> select ID,Name,Amount,Date
+    -> from customers
+    -> right join orders
+    -> on customers.ID = orders.customers_ID;
++------+----------+--------+------------+
+| ID   | Name     | Amount | Date       |
++------+----------+--------+------------+
+|    1 | Tejas    |   NULL | NULL       |
+|    2 | Anish    |   1560 | 2009-11-20 |
+|    3 | Karan    |   1500 | 2009-10-08 |
+|    3 | Karan    |   3000 | 2009-10-08 |
+|    4 | Pratham  |   2060 | 2008-05-20 |
+|    5 | Rashmi   |   NULL | NULL       |
+|    6 | Shruti   |   NULL | NULL       |
+|    7 | Priyanka |   NULL | NULL       |
++------+----------+--------+------------+
+8 rows in set (0.01 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers,orders;
++------+----------+--------+------------+
+| ID   | Name     | Amount | Date       |
++------+----------+--------+------------+
+|    1 | Tejas    |   2060 | 2008-05-20 |
+|    1 | Tejas    |   1560 | 2009-11-20 |
+|    1 | Tejas    |   1500 | 2009-10-08 |
+|    1 | Tejas    |   3000 | 2009-10-08 |
+|    2 | Anish    |   2060 | 2008-05-20 |
+|    2 | Anish    |   1560 | 2009-11-20 |
+|    2 | Anish    |   1500 | 2009-10-08 |
+|    2 | Anish    |   3000 | 2009-10-08 |
+|    3 | Karan    |   2060 | 2008-05-20 |
+|    3 | Karan    |   1560 | 2009-11-20 |
+|    3 | Karan    |   1500 | 2009-10-08 |
+|    3 | Karan    |   3000 | 2009-10-08 |
+|    4 | Pratham  |   2060 | 2008-05-20 |
+|    4 | Pratham  |   1560 | 2009-11-20 |
+|    4 | Pratham  |   1500 | 2009-10-08 |
+|    4 | Pratham  |   3000 | 2009-10-08 |
+|    5 | Rashmi   |   2060 | 2008-05-20 |
+|    5 | Rashmi   |   1560 | 2009-11-20 |
+|    5 | Rashmi   |   1500 | 2009-10-08 |
+|    5 | Rashmi   |   3000 | 2009-10-08 |
+|    6 | Shruti   |   2060 | 2008-05-20 |
+|    6 | Shruti   |   1560 | 2009-11-20 |
+|    6 | Shruti   |   1500 | 2009-10-08 |
+|    6 | Shruti   |   3000 | 2009-10-08 |
+|    7 | Priyanka |   2060 | 2008-05-20 |
+|    7 | Priyanka |   1560 | 2009-11-20 |
+|    7 | Priyanka |   1500 | 2009-10-08 |
+|    7 | Priyanka |   3000 | 2009-10-08 |
++------+----------+--------+------------+
+28 rows in set (0.00 sec)
+
+mysql> select ID,Name,Amount,Date
+    -> from customers
+    -> cross join orders;
++------+----------+--------+------------+
+| ID   | Name     | Amount | Date       |
++------+----------+--------+------------+
+|    1 | Tejas    |   2060 | 2008-05-20 |
+|    1 | Tejas    |   1560 | 2009-11-20 |
+|    1 | Tejas    |   1500 | 2009-10-08 |
+|    1 | Tejas    |   3000 | 2009-10-08 |
+|    2 | Anish    |   2060 | 2008-05-20 |
+|    2 | Anish    |   1560 | 2009-11-20 |
+|    2 | Anish    |   1500 | 2009-10-08 |
+|    2 | Anish    |   3000 | 2009-10-08 |
+|    3 | Karan    |   2060 | 2008-05-20 |
+|    3 | Karan    |   1560 | 2009-11-20 |
+|    3 | Karan    |   1500 | 2009-10-08 |
+|    3 | Karan    |   3000 | 2009-10-08 |
+|    4 | Pratham  |   2060 | 2008-05-20 |
+|    4 | Pratham  |   1560 | 2009-11-20 |
+|    4 | Pratham  |   1500 | 2009-10-08 |
+|    4 | Pratham  |   3000 | 2009-10-08 |
+|    5 | Rashmi   |   2060 | 2008-05-20 |
+|    5 | Rashmi   |   1560 | 2009-11-20 |
+|    5 | Rashmi   |   1500 | 2009-10-08 |
+|    5 | Rashmi   |   3000 | 2009-10-08 |
+|    6 | Shruti   |   2060 | 2008-05-20 |
+|    6 | Shruti   |   1560 | 2009-11-20 |
+|    6 | Shruti   |   1500 | 2009-10-08 |
+|    6 | Shruti   |   3000 | 2009-10-08 |
+|    7 | Priyanka |   2060 | 2008-05-20 |
+|    7 | Priyanka |   1560 | 2009-11-20 |
+|    7 | Priyanka |   1500 | 2009-10-08 |
+|    7 | Priyanka |   3000 | 2009-10-08 |
++------+----------+--------+------------+
+28 rows in set (0.00 sec)

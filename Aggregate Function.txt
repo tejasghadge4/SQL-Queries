@@ -1,0 +1,118 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| class              |
+| clause             |
+| information_schema |
+| joins              |
+| mysql              |
+| performance_schema |
+| practise           |
+| sakila             |
+| student            |
+| sys                |
+| views              |
+| world              |
++--------------------+
+12 rows in set (0.13 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| employees          |
++--------------------+
+1 row in set (0.02 sec)
+
+mysql> create table sales (
+    -> sale_id int,
+    -> product_name varchar(20),
+    -> sale_date date,
+    -> sale_amount decimal(10,2)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into sales (sale_id,product_name,sale_date,sale_amount) values
+    -> (1, 'Laptop', '2024-08-01', 1200.00),
+    -> (2, 'Smartphone', '2024-08-05', 800.00),
+    -> (3, 'Desk Chair', '2024-08-07', 150.00),
+    -> (4, 'Bookshelf', '2024-08-10', 120.00),
+    -> (5, 'Washing Machine', '2024-08-15', 600.00);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from sales;
++---------+-----------------+------------+-------------+
+| sale_id | product_name    | sale_date  | sale_amount |
++---------+-----------------+------------+-------------+
+|       1 | Laptop          | 2024-08-01 |     1200.00 |
+|       2 | Smartphone      | 2024-08-05 |      800.00 |
+|       3 | Desk Chair      | 2024-08-07 |      150.00 |
+|       4 | Bookshelf       | 2024-08-10 |      120.00 |
+|       5 | Washing Machine | 2024-08-15 |      600.00 |
++---------+-----------------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(sale_amount) as totalsales
+    -> from sales;
++------------+
+| totalsales |
++------------+
+|    2870.00 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select avg(sale_amount) as totalsales
+    -> ^C
+mysql> select avg(sale_amount) as Averagesales
+    -> from sales;
++--------------+
+| Averagesales |
++--------------+
+|   574.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select max(sale_amount) as maxsales
+    -> from sales;
++----------+
+| maxsales |
++----------+
+|  1200.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(sale_amount) as minsales
+    -> from sales;
++----------+
+| minsales |
++----------+
+|   120.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as totalcount
+    -> from sales;
++------------+
+| totalcount |
++------------+
+|          5 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select product_name,count(product_name) as countproduct
+    -> from sales
+    -> group by product_name;
++-----------------+--------------+
+| product_name    | countproduct |
++-----------------+--------------+
+| Laptop          |            1 |
+| Smartphone      |            1 |
+| Desk Chair      |            1 |
+| Bookshelf       |            1 |
+| Washing Machine |            1 |
++-----------------+--------------+
+5 rows in set (0.00 sec)

@@ -1,0 +1,418 @@
+mysql> show databases;
++--------------------+
+| Database |
++--------------------+
+| class |
+| clause |
+| information_schema |
+| joins |
+| mysql |
+| performance_schema |
+| practise |
+| sakila |
+| student |
+| sys |
+| views |
+| world |
++--------------------+
+12 rows in set (0.09 sec)
+
+mysql> use practise;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practise |
++--------------------+
+| books |
+| customers |
+| employees |
+| orders |
+| sales |
++--------------------+
+5 rows in set (0.02 sec)
+
+mysql> CREATE TABLE Restaurant (
+-> id INT PRIMARY KEY,
+-> name VARCHAR(100),
+-> location VARCHAR(100),
+-> cuisine VARCHAR(50),
+-> rating DECIMAL(2, 1),
+-> price_range DECIMAL(5, 2),
+-> opening_time TIME,
+-> closing_time TIME,
+-> priority VARCHAR(10)
+-> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO Restaurant (id, name, location, cuisine, rating, price_range, opening_time, closing_time, priority)
+-> VALUES
+-> (1, 'Bella Italia', 'New York', 'Italian', 4.5, 30, '11:00:00', '23:00:00', 'yes'),
+-> (2, 'The Spice Lounge', 'Los Angeles', 'Indian', 4.2, 25, '12:00:00', '22:30:00', 'no'),
+-> (3, 'Sushi World', 'San Francisco', 'Japanese', 4.8, 40, '10:00:00', '21:00:00', 'yes'),
+-> (4, 'Taco Fiesta', 'New York', 'Mexican', 3.9, 15, '09:00:00', '20:00:00', 'no'),
+-> (5, 'Urban Grill', 'Chicago', 'American', 4.0, 35, '10:30:00', '23:30:00', 'no'),
+-> (6, 'Dragon Palace', 'Los Angeles', 'Chinese', 4.7, 20, '11:00:00', '22:00:00', 'yes'),
+-> (7, 'La Petite Maison', 'New York', 'French', 4.3, 50, '18:00:00', '00:00:00', 'yes'),
+-> (8, 'Veggie Delight', 'San Francisco', 'Vegetarian', 4.0, 18, '08:00:00', '19:30:00', 'no'),
+-> (9, 'The Grill House', 'Miami', 'American', 4.6, 45, '12:00:00', '23:45:00', 'yes'),
+-> (10, 'Saffron Taste', 'Chicago', 'Indian', 3.8, 22, '11:00:00', '21:30:00', 'no');
+Query OK, 10 rows affected (0.02 sec)
+Records: 10 Duplicates: 0 Warnings: 0
+
+mysql> select * from Resturant;
+ERROR 1146 (42S02): Table 'practise.resturant' doesn't exist
+mysql> select * from Restaurant;
++----+------------------+---------------+------------+--------+-------------+--------------+--------------+----------+
+| id | name | location | cuisine | rating | price_range | opening_time | closing_time | priority |
++----+------------------+---------------+------------+--------+-------------+--------------+--------------+----------+
+| 1 | Bella Italia | New York | Italian | 4.5 | 30.00 | 11:00:00 | 23:00:00 | yes |
+| 2 | The Spice Lounge | Los Angeles | Indian | 4.2 | 25.00 | 12:00:00 | 22:30:00 | no |
+| 3 | Sushi World | San Francisco | Japanese | 4.8 | 40.00 | 10:00:00 | 21:00:00 | yes |
+| 4 | Taco Fiesta | New York | Mexican | 3.9 | 15.00 | 09:00:00 | 20:00:00 | no |
+| 5 | Urban Grill | Chicago | American | 4.0 | 35.00 | 10:30:00 | 23:30:00 | no |
+| 6 | Dragon Palace | Los Angeles | Chinese | 4.7 | 20.00 | 11:00:00 | 22:00:00 | yes |
+| 7 | La Petite Maison | New York | French | 4.3 | 50.00 | 18:00:00 | 00:00:00 | yes |
+| 8 | Veggie Delight | San Francisco | Vegetarian | 4.0 | 18.00 | 08:00:00 | 19:30:00 | no |
+| 9 | The Grill House | Miami | American | 4.6 | 45.00 | 12:00:00 | 23:45:00 | yes |
+| 10 | Saffron Taste | Chicago | Indian | 3.8 | 22.00 | 11:00:00 | 21:30:00 | no |
++----+------------------+---------------+------------+--------+-------------+--------------+--------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from Restaurant where location = 'New York';
++----+------------------+----------+---------+--------+-------------+--------------+--------------+----------+
+| id | name | location | cuisine | rating | price_range | opening_time | closing_time | priority |
++----+------------------+----------+---------+--------+-------------+--------------+--------------+----------+
+| 1 | Bella Italia | New York | Italian | 4.5 | 30.00 | 11:00:00 | 23:00:00 | yes |
+| 4 | Taco Fiesta | New York | Mexican | 3.9 | 15.00 | 09:00:00 | 20:00:00 | no |
+| 7 | La Petite Maison | New York | French | 4.3 | 50.00 | 18:00:00 | 00:00:00 | yes |
++----+------------------+----------+---------+--------+-------------+--------------+--------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select name,cuisine from Restaurant where rating > 4.0;
++------------------+----------+
+| name | cuisine |
++------------------+----------+
+| Bella Italia | Italian |
+| The Spice Lounge | Indian |
+| Sushi World | Japanese |
+| Dragon Palace | Chinese |
+| La Petite Maison | French |
+| The Grill House | American |
++------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select name,cuisine from Restaurant where cuisine = 'Italina' or cuisine = 'Chinese';
++---------------+---------+
+| name | cuisine |
++---------------+---------+
+| Dragon Palace | Chinese |
++---------------+---------+
+1 row in set (0.00 sec)
+
+mysql> select name,cuisine from Restaurant where cuisine in('Italian','Chinese');
++---------------+---------+
+| name | cuisine |
++---------------+---------+
+| Bella Italia | Italian |
+| Dragon Palace | Chinese |
++---------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) from Restaurant where price_range between 20 and 50;
++----------+
+| count(*) |
++----------+
+| 8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select name,closing_time from Restaurant where closing_time > '22:00:00';
++------------------+--------------+
+| name | closing_time |
++------------------+--------------+
+| Bella Italia | 23:00:00 |
+| The Spice Lounge | 22:30:00 |
+| Urban Grill | 23:30:00 |
+| The Grill House | 23:45:00 |
++------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select name, rating from Restaurent order by rating desc limit 1;
+ERROR 1146 (42S02): Table 'practise.restaurent' doesn't exist
+mysql> select name, rating from Restaurant order by rating desc limit 1;
++-------------+--------+
+| name | rating |
++-------------+--------+
+| Sushi World | 4.8 |
++-------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select name, location from Restaurant where location != 'Los Angeles';
++------------------+---------------+
+| name | location |
++------------------+---------------+
+| Bella Italia | New York |
+| Sushi World | San Francisco |
+| Taco Fiesta | New York |
+| Urban Grill | Chicago |
+| La Petite Maison | New York |
+| Veggie Delight | San Francisco |
+| The Grill House | Miami |
+| Saffron Taste | Chicago |
++------------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> select avg(rating) as average_rating from Restaurant;
++----------------+
+| average_rating |
++----------------+
+| 4.28000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select name from Restaurant where priority = 'yes';
++------------------+
+| name |
++------------------+
+| Bella Italia |
+| Sushi World |
+| Dragon Palace |
+| La Petite Maison |
+| The Grill House |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Restaurant where name like '%Grill%';
++----+-----------------+----------+----------+--------+-------------+--------------+--------------+----------+
+| id | name | location | cuisine | rating | price_range | opening_time | closing_time | priority |
++----+-----------------+----------+----------+--------+-------------+--------------+--------------+----------+
+| 5 | Urban Grill | Chicago | American | 4.0 | 35.00 | 10:30:00 | 23:30:00 | no |
+| 9 | The Grill House | Miami | American | 4.6 | 45.00 | 12:00:00 | 23:45:00 | yes |
++----+-----------------+----------+----------+--------+-------------+--------------+--------------+----------+
+2 rows in set (0.01 sec)
+
+mysql> select name, opening_time from Restaurant where opening_time < '10:00:00';
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id: 10
+Current database: practise
+
++----------------+--------------+
+| name | opening_time |
++----------------+--------------+
+| Taco Fiesta | 09:00:00 |
+| Veggie Delight | 08:00:00 |
++----------------+--------------+
+2 rows in set (0.17 sec)
+
+mysql> select name,location,rating from Restaurant where rating=4.0;
++----------------+---------------+--------+
+| name | location | rating |
++----------------+---------------+--------+
+| Urban Grill | Chicago | 4.0 |
+| Veggie Delight | San Francisco | 4.0 |
++----------------+---------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select name,location from Resturant where location in ('Chicago', 'Miami');
+ERROR 1146 (42S02): Table 'practise.resturant' doesn't exist
+mysql> select name,location from Restaurant where location in ('Chicago', 'Miami');
++-----------------+----------+
+| name | location |
++-----------------+----------+
+| Urban Grill | Chicago |
+| The Grill House | Miami |
+| Saffron Taste | Chicago |
++-----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select name,price_range from Restaurant order by price_range asc limit 1;
++-------------+-------------+
+| name | price_range |
++-------------+-------------+
+| Taco Fiesta | 15.00 |
++-------------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select count(*) from Restaurant where priority = 'yes';
++----------+
+| count(*) |
++----------+
+| 5 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select name,rating from Restaurant order by rating desc;
++------------------+--------+
+| name | rating |
++------------------+--------+
+| Sushi World | 4.8 |
+| Dragon Palace | 4.7 |
+| The Grill House | 4.6 |
+| Bella Italia | 4.5 |
+| La Petite Maison | 4.3 |
+| The Spice Lounge | 4.2 |
+| Urban Grill | 4.0 |
+| Veggie Delight | 4.0 |
+| Taco Fiesta | 3.9 |
+| Saffron Taste | 3.8 |
++------------------+--------+
+10 rows in set (0.01 sec)
+
+mysql> select name,price_range from Restaurant where cuisine = 'Indian' and price_range between 20 and 30;
++------------------+-------------+
+| name | price_range |
++------------------+-------------+
+| The Spice Lounge | 25.00 |
+| Saffron Taste | 22.00 |
++------------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select name,closing_time from Restaurant where closing_time > '00:00:00';
++------------------+--------------+
+| name | closing_time |
++------------------+--------------+
+| Bella Italia | 23:00:00 |
+| The Spice Lounge | 22:30:00 |
+| Sushi World | 21:00:00 |
+| Taco Fiesta | 20:00:00 |
+| Urban Grill | 23:30:00 |
+| Dragon Palace | 22:00:00 |
+| Veggie Delight | 19:30:00 |
+| The Grill House | 23:45:00 |
+| Saffron Taste | 21:30:00 |
++------------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select avg(price_range) as avg_price from Restaurant where location = 'Los Angeles';
++-----------+
+| avg_price |
++-----------+
+| 22.500000 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> select name,cuisine from Restaurant where name like 'S%';
++---------------+----------+
+| name | cuisine |
++---------------+----------+
+| Sushi World | Japanese |
+| Saffron Taste | Indian |
++---------------+----------+
+2 rows in set (0.01 sec)
+
+mysql> select cuisine, count(*) as total_restaurants from Restaurant group by cuisine;
++------------+-------------------+
+| cuisine | total_restaurants |
++------------+-------------------+
+| Italian | 1 |
+| Indian | 2 |
+| Japanese | 1 |
+| Mexican | 1 |
+| American | 2 |
+| Chinese | 1 |
+| French | 1 |
+| Vegetarian | 1 |
++------------+-------------------+
+8 rows in set (0.01 sec)
+
+mysql> select location, avg(rating) as average_rating
+-> from Restaurant
+-> group by location;
++---------------+----------------+
+| location | average_rating |
++---------------+----------------+
+| New York | 4.23333 |
+| Los Angeles | 4.45000 |
+| San Francisco | 4.40000 |
+| Chicago | 3.90000 |
+| Miami | 4.60000 |
++---------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select location, count(*) as high_rated_retaurant
+-> from Restaurant
+-> where rating > 4.0
+-> group by location;
++---------------+----------------------+
+| location | high_rated_retaurant |
++---------------+----------------------+
+| New York | 2 |
+| Los Angeles | 2 |
+| San Francisco | 1 |
+| Miami | 1 |
++---------------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> select cuisine, count(*) as priority_restaurant
+-> from Restaurant
+-> where priority = 'yes'
+-> group by cuisine;
++----------+---------------------+
+| cuisine | priority_restaurant |
++----------+---------------------+
+| Italian | 1 |
+| Japanese | 1 |
+| Chinese | 1 |
+| French | 1 |
+| American | 1 |
++----------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select cuisine, avg(price_range) as avg_price
+-> from Restaurant
+-> group by cuisine
+-> having avg(price_range) > 30;
++----------+-----------+
+| cuisine | avg_price |
++----------+-----------+
+| Japanese | 40.000000 |
+| American | 40.000000 |
+| French | 50.000000 |
++----------+-----------+
+3 rows in set (0.01 sec)
+
+mysql> select location, count(*) as total_restaurant
+-> from Restaurant
+-> group by location
+-> having count(*) > 2;
++----------+------------------+
+| location | total_restaurant |
++----------+------------------+
+| New York | 3 |
++----------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select cuisine, avg(rating) as avg_rating
+-> from Restaurant
+-> group by cuisine
+-> having count(*) > 3;
+Empty set (0.00 sec)
+
+mysql> select location, price_range, count(*) as total_restaurant
+-> from Restaurant
+-> where price_range > 20
+-> group by location,price_range;
++---------------+-------------+------------------+
+| location | price_range | total_restaurant |
++---------------+-------------+------------------+
+| New York | 30.00 | 1 |
+| Los Angeles | 25.00 | 1 |
+| San Francisco | 40.00 | 1 |
+| Chicago | 35.00 | 1 |
+| New York | 50.00 | 1 |
+| Miami | 45.00 | 1 |
+| Chicago | 22.00 | 1 |
++---------------+-------------+------------------+
+7 rows in set (0.00 sec)
+
+mysql> select rating, count(*) as num_restaurant
+-> from Restaurant
+-> group by rating
+-> having count(*) > 1;
++--------+----------------+
+| rating | num_restaurant |
++--------+----------------+
+| 4.0 | 2 |
++--------+----------------+
+1 row in set (0.00 sec)
